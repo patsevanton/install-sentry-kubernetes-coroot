@@ -1,6 +1,7 @@
 corootCE:
   ingress:
     enabled: true
+    className: "nginx"
     hosts:
       - host: coroot.apatsev.org.ru
         paths:
