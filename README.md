@@ -71,6 +71,15 @@ helmwave up --build
 k9s -A
 ```
 
+Получаем креды от PostgreSQL
+```commandline
+SUPERUSER_USERNAME=$(kubectl get secret postgresql-cluster-superuser -n postgresql -o jsonpath="{.data.username}" | base64 --decode)
+SUPERUSER_PASSWORD=$(kubectl get secret postgresql-cluster-superuser -n postgresql -o jsonpath="{.data.password}" | base64 --decode)
+
+echo "Superuser Username: $SUPERUSER_USERNAME"
+echo "Superuser Password: $SUPERUSER_PASSWORD"
+```
+
 Создаем kafka-node-pool, kafka, kafka-topics с помощью https://github.com/strimzi/strimzi-kafka-operator.
 Примеры берем отсюда https://github.com/strimzi/strimzi-kafka-operator/tree/main/examples/kafka
 ```
