@@ -29,17 +29,17 @@ releases:
     values:
       - values-coroot.yaml
 
-  - name: cnpg
-    namespace: cnpg-system
-    create_namespace: true
-    atomic: true
-    wait: true
-    timeout: 5m
-    max_history: 3
-    chart: cnpg/cloudnative-pg
-    version: 0.21.6
-    depends_on:
-      - coroot@coroot
+#  - name: cnpg
+#    namespace: cnpg-system
+#    create_namespace: true
+#    atomic: true
+#    wait: true
+#    timeout: 5m
+#    max_history: 3
+#    chart: cnpg/cloudnative-pg
+#    version: 0.21.6
+#    depends_on:
+#      - coroot@coroot
 
   - name: altinity-clickhouse-operator
     namespace: kube-system

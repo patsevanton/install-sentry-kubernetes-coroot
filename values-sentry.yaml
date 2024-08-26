@@ -93,11 +93,10 @@ postgresql:
   enabled: false
 externalPostgresql:
   password: sentry-postgresql-password
-  host: sentry-pg-rw.postgresql.svc.cluster.local
-  port: 5432
+  host: "c-id.rw.mdb.yandexcloud.net"
+  port: 6432
   username: sentry
   database: sentry
-  sslMode: disable
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
   enabled: false
