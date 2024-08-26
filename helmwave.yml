@@ -72,3 +72,16 @@ releases:
       - strimzi@strimzi-kafka-operator
       - zookeeper@zookeeper
       - altinity-clickhouse-operator@kube-system
+      - redis@redis
+
+  - name: redis
+    namespace: redis
+    create_namespace: true
+    atomic: true
+    wait: true
+    timeout: 5m
+    max_history: 3
+    chart:
+      name: oci://registry-1.docker.io/bitnamicharts/redis
+      version: 20.0.3
+
