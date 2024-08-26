@@ -46,8 +46,6 @@ releases:
     timeout: 5m
     max_history: 3
     chart: altinity-clickhouse-operator/altinity-clickhouse-operator
-    depends_on:
-      - coroot@coroot
 
   - name: zookeeper
     namespace: zookeeper
@@ -61,8 +59,6 @@ releases:
       version: 10.2.5
     values:
       - values-zookeeper.yaml
-    depends_on:
-      - coroot@coroot
 
   - name: strimzi
     namespace: strimzi-kafka-operator
@@ -75,8 +71,6 @@ releases:
     version: 0.41.0
     values:
       - values-strimzi-kafka-operator.yaml
-    depends_on:
-      - coroot@coroot
 
   - name: redis
     namespace: redis
@@ -90,5 +84,3 @@ releases:
       version: 20.0.3
     values:
       - values-redis.yaml
-    depends_on:
-      - coroot@coroot

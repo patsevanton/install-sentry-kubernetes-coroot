@@ -90,7 +90,7 @@ module "dns-zone" {
 
   zone             = "apatsev.org.ru." # Точка в конце обязательна
   is_public        = true
-  private_networks = ["enpnci50506dmk59lltt"] # network_id
+  private_networks = [module.network.vpc_id] # network_id
 }
 
 module "dns-recordset" {

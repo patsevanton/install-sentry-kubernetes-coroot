@@ -97,6 +97,7 @@ externalPostgresql:
   port: 5432
   username: sentry
   database: sentry
+  sslMode: disable
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
   enabled: false
