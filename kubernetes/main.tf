@@ -78,14 +78,14 @@ module "address" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-address.git?ref=v1.0.0"
 
   ip_address_name = "sentry-pip"
-  folder_id       = "b1gts6lhpg0oskqf7v32" # data.yandex_client_config.client.folder_id
+  folder_id       = data.yandex_client_config.client.folder_id
   zone            = "ru-central1-a"
 }
 
 module "dns-zone" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-dns.git//modules/zone?ref=v1.0.0"
 
-  folder_id = "b1gts6lhpg0oskqf7v32" # # data.yandex_client_config.client.folder_id
+  folder_id = data.yandex_client_config.client.folder_id
   name      = "apatsev-org-ru-zone"
 
   zone             = "apatsev.org.ru." # Точка в конце обязательна
@@ -96,7 +96,7 @@ module "dns-zone" {
 module "dns-recordset" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-dns.git//modules/recordset?ref=v1.0.0"
 
-  folder_id = "b1gts6lhpg0oskqf7v32" # # data.yandex_client_config.client.folder_id
+  folder_id = data.yandex_client_config.client.folder_id
   zone_id   = module.dns-zone.id
   name      = "sentry.apatsev.org.ru." # Точка в конце обязательна
   type      = "A"
@@ -109,7 +109,7 @@ module "dns-recordset" {
 module "dns-recordset-coroot" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-dns.git//modules/recordset?ref=v1.0.0"
 
-  folder_id = "b1gts6lhpg0oskqf7v32" # # data.yandex_client_config.client.folder_id
+  folder_id = data.yandex_client_config.client.folder_id
   zone_id   = module.dns-zone.id
   name      = "coroot.apatsev.org.ru." # Точка в конце обязательна
   type      = "A"

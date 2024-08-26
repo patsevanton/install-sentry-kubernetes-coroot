@@ -7,3 +7,21 @@ spec:
   instances: 3
   storage:
     size: 30Gi
+  bootstrap:
+    initdb:
+      database: sentry
+      owner: sentry
+      secret:
+        name: sentry-user-secret
+  users:
+    - name: sentry
+      secret:
+        name: sentry-user-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sentry-user-secret
+type: Opaque
+data:
+  password: sentry-postgresql-password
