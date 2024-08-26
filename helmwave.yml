@@ -1,4 +1,4 @@
-project: "zookeeper"
+project: "sentry"
 version: 0.38.0
 
 registries:
@@ -11,8 +11,20 @@ repositories:
     url: https://strimzi.io/charts/
   - name: sentry
     url: https://sentry-kubernetes.github.io/charts
+  - name: cnpg
+    url: https://cloudnative-pg.github.io/charts
 
 releases:
+  - name: cnpg
+    namespace: cnpg-system
+    create_namespace: true
+    atomic: true
+    wait: true
+    timeout: 5m
+    max_history: 3
+    chart: cnpg/cloudnative-pg
+    version: 0.21.6
+
   - name: altinity-clickhouse-operator
     namespace: kube-system
     timeout: 5m
@@ -43,3 +55,20 @@ releases:
     version: 0.41.0
     values:
       - values-strimzi-kafka-operator.yaml
+
+  - name: postgresql
+    namespace: postgresql
+    create_namespace: true
+    atomic: true
+    wait: true
+    timeout: 5m
+    max_history: 3
+    chart: cnpg/cluster
+    version: 0.0.9
+    values:
+      - values-cloudnative-pg.yaml
+    depends_on:
+      - cnpg@cnpg-system
+      - strimzi@strimzi-kafka-operator
+      - zookeeper@zookeeper
+      - altinity-clickhouse-operator@kube-system
