@@ -17,6 +17,18 @@ repositories:
     url: https://coroot.github.io/helm-charts
 
 releases:
+  - name: coroot
+    namespace: coroot
+    create_namespace: true
+    atomic: true
+    wait: true
+    timeout: 5m
+    max_history: 3
+    chart: coroot/coroot
+    version: 0.14.9
+    values:
+      - values-coroot.yaml
+
   - name: cnpg
     namespace: cnpg-system
     create_namespace: true
@@ -26,12 +38,16 @@ releases:
     max_history: 3
     chart: cnpg/cloudnative-pg
     version: 0.21.6
+    depends_on:
+      - coroot@coroot
 
   - name: altinity-clickhouse-operator
     namespace: kube-system
     timeout: 5m
     max_history: 3
     chart: altinity-clickhouse-operator/altinity-clickhouse-operator
+    depends_on:
+      - coroot@coroot
 
   - name: zookeeper
     namespace: zookeeper
@@ -45,6 +61,8 @@ releases:
       version: 10.2.5
     values:
       - values-zookeeper.yaml
+    depends_on:
+      - coroot@coroot
 
   - name: strimzi
     namespace: strimzi-kafka-operator
@@ -57,6 +75,8 @@ releases:
     version: 0.41.0
     values:
       - values-strimzi-kafka-operator.yaml
+    depends_on:
+      - coroot@coroot
 
   - name: redis
     namespace: redis
@@ -70,15 +90,5 @@ releases:
       version: 20.0.3
     values:
       - values-redis.yaml
-
-  - name: coroot
-    namespace: coroot
-    create_namespace: true
-    atomic: true
-    wait: true
-    timeout: 5m
-    max_history: 3
-    chart: coroot/coroot
-    version: 0.14.9
-    values:
-      - values-coroot.yaml
+    depends_on:
+      - coroot@coroot
