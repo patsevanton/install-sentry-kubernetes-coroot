@@ -1,0 +1,8 @@
+corootCE:
+  ingress:
+    enabled: true
+    hosts:
+      - host: coroot.apatsev.org.ru
+        paths:
+          - path: /
+            pathType: Prefix

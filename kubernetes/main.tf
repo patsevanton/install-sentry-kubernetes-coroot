@@ -106,6 +106,19 @@ module "dns-recordset" {
   ]
 }
 
+module "dns-recordset-coroot" {
+  source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-dns.git//modules/recordset?ref=v1.0.0"
+
+  folder_id = "b1gts6lhpg0oskqf7v32"
+  zone_id   = module.dns-zone.id
+  name      = "coroot.apatsev.org.ru." # Точка в конце обязательна
+  type      = "A"
+  ttl       = 200
+  data = [
+    module.address.external_ipv4_address
+  ]
+}
+
 provider "helm" {
   kubernetes {
     host                   = module.kube.external_v4_endpoint

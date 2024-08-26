@@ -13,6 +13,8 @@ repositories:
     url: https://sentry-kubernetes.github.io/charts
   - name: cnpg
     url: https://cloudnative-pg.github.io/charts
+  - name: coroot
+    url: https://coroot.github.io/helm-charts
 
 releases:
   - name: cnpg
@@ -83,5 +85,18 @@ releases:
     max_history: 3
     chart:
       name: oci://registry-1.docker.io/bitnamicharts/redis
-      version: 20.0.3
+      version: 19.6.4
+    values:
+      - values-redis.yaml
 
+  - name: coroot
+    namespace: coroot
+    create_namespace: true
+    atomic: true
+    wait: true
+    timeout: 5m
+    max_history: 3
+    chart: coroot/coroot
+    version: 0.14.9
+    values:
+      - values-coroot.yaml
