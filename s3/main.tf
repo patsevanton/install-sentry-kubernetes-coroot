@@ -1,8 +1,10 @@
+data "yandex_client_config" "client" {}
+
 module "s3" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-storage-bucket.git?ref=v1.0.0"
 
   bucket_name = "sentry-bucket-apatsev-dev"
-  folder_id   = "xxxx"
+  folder_id = data.yandex_client_config.client.folder_id
 }
 
 provider "aws" {

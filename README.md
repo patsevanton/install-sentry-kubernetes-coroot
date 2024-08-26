@@ -47,8 +47,6 @@ terraform output secret_key
 cd ..
 ```
 
-Адреса, креды PostgreSQL, Redis, S3 прописываем в файле values-sentry.yaml
-
 Устанавливаем новое подключение к k8s.
 ```shell
 yc managed-kubernetes cluster get-credentials --id xxxx --external
@@ -71,10 +69,15 @@ helmwave up --build
 k9s -A
 ```
 
+```shell
+kubectl create namespace postgresql
+kubectl apply -f values-cloudnative-pg.yaml
+```
+
 Получаем креды от PostgreSQL
 ```commandline
-SUPERUSER_USERNAME=$(kubectl get secret postgresql-cluster-superuser -n postgresql -o jsonpath="{.data.username}" | base64 --decode)
-SUPERUSER_PASSWORD=$(kubectl get secret postgresql-cluster-superuser -n postgresql -o jsonpath="{.data.password}" | base64 --decode)
+SUPERUSER_USERNAME=$(kubectl get secret sentry-pg-app -n postgresql -o jsonpath="{.data.username}" | base64 --decode)
+SUPERUSER_PASSWORD=$(kubectl get secret sentry-pg-app -n postgresql -o jsonpath="{.data.password}" | base64 --decode)
 
 echo "Superuser Username: $SUPERUSER_USERNAME"
 echo "Superuser Password: $SUPERUSER_PASSWORD"
@@ -109,6 +112,13 @@ kubectl apply -f kind-ClickHouseInstallation.yaml
 ```
 k9s -A
 ```
+
+Получаем пароль от Redis
+```shell
+kubectl get secret -n redis redis -o jsonpath="{.data.redis-password}" | base64 --decode
+```
+
+Адреса, креды PostgreSQL, Redis, S3 прописываем в файле values-sentry.yaml
 
 Устанавливаем sentry.
 ```shell

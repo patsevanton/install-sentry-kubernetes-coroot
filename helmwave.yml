@@ -58,24 +58,6 @@ releases:
     values:
       - values-strimzi-kafka-operator.yaml
 
-  - name: postgresql
-    namespace: postgresql
-    create_namespace: true
-    atomic: true
-    wait: true
-    timeout: 5m
-    max_history: 3
-    chart: cnpg/cluster
-    version: 0.0.9
-    values:
-      - values-cloudnative-pg.yaml
-    depends_on:
-      - cnpg@cnpg-system
-      - strimzi@strimzi-kafka-operator
-      - zookeeper@zookeeper
-      - altinity-clickhouse-operator@kube-system
-      - redis@redis
-
   - name: redis
     namespace: redis
     create_namespace: true
@@ -85,7 +67,7 @@ releases:
     max_history: 3
     chart:
       name: oci://registry-1.docker.io/bitnamicharts/redis
-      version: 19.6.4
+      version: 20.0.3
     values:
       - values-redis.yaml
 

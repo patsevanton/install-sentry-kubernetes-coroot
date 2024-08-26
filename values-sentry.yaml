@@ -92,18 +92,18 @@ filestore:
 postgresql:
   enabled: false
 externalPostgresql:
-  password: sentry-postgresql-password
-  host: postgresql.postgresql-cluster-rw.svc.cluster.local
+  password: xxxxxxxx
+  host: sentry-pg-rw.postgresql.svc.cluster.local
   port: 5432
-  username: postgres
-  database: sentry
+  username: app
+  database: app
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
   enabled: false
 redis:
   enabled: false
 externalRedis:
-  host: redis.redis.svc.cluster.local
+  host: redis-master.redis.svc.cluster.local
   port: 6379
 externalKafka:
   - host: sentry-kafka-dual-roles-node-0.sentry-kafka-kafka-brokers.sentry.svc.cluster.local

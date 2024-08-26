@@ -1,5 +1,9 @@
-mode: standalone
-cluster:
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: sentry-pg
+  namespace: postgresql
+spec:
   instances: 3
-backups:
-  enabled: false
+  storage:
+    size: 30Gi
