@@ -92,11 +92,11 @@ filestore:
 postgresql:
   enabled: false
 externalPostgresql:
-  password: xxxxxxxx
+  password: sentry-postgresql-password
   host: sentry-pg-rw.postgresql.svc.cluster.local
   port: 5432
-  username: app
-  database: app
+  username: sentry
+  database: sentry
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
   enabled: false

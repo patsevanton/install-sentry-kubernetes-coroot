@@ -27,4 +27,4 @@ metadata:
   namespace: postgresql
 type: Opaque
 data:
-  password: c2VudHktcG9zdGdyZXMtcGFzc3dvcmQ=  # Закодированный пароль "sentry-postgresql-password" в base64
+  password: c2VudHJ5LXBvc3RncmVzcWwtcGFzc3dvcmQK  # Закодированный пароль "sentry-postgresql-password" в base64
