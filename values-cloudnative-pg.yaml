@@ -17,6 +17,10 @@ spec:
     - name: sentry
       secret:
         name: sentry-user-secret
+  postgresql:
+    parameters:
+      shared_preload_libraries: 'pg_stat_statements'
+      pg_stat_statements.track: 'all'
 ---
 apiVersion: v1
 kind: Secret
@@ -24,4 +28,4 @@ metadata:
   name: sentry-user-secret
 type: Opaque
 data:
-  password: sentry-postgresql-password
+  password: c2VudHktcG9zdGdyZXMtcGFzc3dvcmQ=  # Закодированный пароль "sentry-postgresql-password" в base64
