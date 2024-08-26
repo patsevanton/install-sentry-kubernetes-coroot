@@ -93,9 +93,9 @@ postgresql:
   enabled: false
 externalPostgresql:
   password: sentry-postgresql-password
-  host: "c-id.rw.mdb.yandexcloud.net"
-  port: 6432
-  username: sentry
+  host: postgresql.postgresql-cluster-rw.svc.cluster.local
+  port: 5432
+  username: postgres
   database: sentry
 rabbitmq:
   ## If disabled, Redis will be used instead as the broker.
@@ -103,8 +103,7 @@ rabbitmq:
 redis:
   enabled: false
 externalRedis:
-  password: sentry-redis-password
-  host: "c-id.rw.mdb.yandexcloud.net"
+  host: redis.redis.svc.cluster.local
   port: 6379
 externalKafka:
   - host: sentry-kafka-dual-roles-node-0.sentry-kafka-kafka-brokers.sentry.svc.cluster.local
