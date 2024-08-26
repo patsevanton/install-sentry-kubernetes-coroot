@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sentry-benchmark
-          image: antonpatsev/sentry-benchmark:5
+          image: antonpatsev/sentry-benchmark:6
           imagePullPolicy: Always
           env:
             - name: SENTRY_DSN
@@ -22,5 +22,7 @@ spec:
                 secretKeyRef:
                   name: sentry-dsn
                   key: dsn
+            - name: DELAY
+              value: "100"
           ports:
             - containerPort: 8080

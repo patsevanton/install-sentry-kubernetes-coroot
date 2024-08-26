@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/getsentry/sentry-go"
@@ -27,6 +28,17 @@ func main() {
 
 	// Инициализация генератора случайных чисел
 	rand.Seed(time.Now().UnixNano())
+
+	// Получение задержки для имитации реальной нагрузки из переменных окружения
+	delayStr := os.Getenv("DELAY")
+	if delayStr == "" {
+		log.Fatal("DELAY environment variable is required")
+	}
+	delayMs, err := strconv.Atoi(delayStr)
+	if err != nil {
+		log.Fatalf("Invalid DELAY value: %s", delayStr)
+	}
+	delay := time.Duration(delayMs) * time.Millisecond
 
 	// Бесконечный цикл для генерации и отправки различных типов ошибок
 	for {
@@ -52,7 +64,7 @@ func main() {
 
 		sentry.CaptureException(err)
 		log.Printf("Sent error: %v to Sentry", err)
-		time.Sleep(100 * time.Millisecond) // Задержка для имитации реальной нагрузки
+		time.Sleep(delay) // Задержка для имитации реальной нагрузки
 	}
 }
 

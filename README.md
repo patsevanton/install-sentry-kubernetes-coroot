@@ -52,6 +52,11 @@ cd ..
 yc managed-kubernetes cluster get-credentials --id xxxx --external
 ```
 
+
+```shell
+нужно поменять storage class в kubernetes по умолчанию на ssd
+```
+
 Создаем namespace sentry.
 ```shell
 kubectl create namespace sentry

@@ -3,13 +3,13 @@
 Соберите Docker образ:
 
 ```
-docker build -t antonpatsev/sentry-benchmark:latest .
+docker build -t antonpatsev/sentry-benchmark:6 .
 ```
 Загрузите образ на Docker Hub:
 
 
 ```
-docker push antonpatsev/sentry-benchmark:latest
+docker push antonpatsev/sentry-benchmark:6
 ```
 Создание Kubernetes Secret:
 
