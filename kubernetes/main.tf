@@ -1,3 +1,5 @@
+data "yandex_client_config" "client" {}
+
 module "iam_accounts" {
   source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-iam.git//modules/iam-account?ref=v1.0.0"
 
@@ -12,15 +14,36 @@ module "iam_accounts" {
     "vpc.publicAdmin",
     "vpc.user",
   ]
-  folder_id = "b1gts6lhpg0oskqf7v32"
+  cloud_roles              = []
+  enable_static_access_key = false
+  enable_api_key           = false
+  enable_account_key       = false
 
 }
 
-module "kube" {
-  source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-kubernetes.git?ref=v1.1.0"
+module "network" {
+  source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-vpc.git?ref=v1.0.0"
 
-  folder_id  = "b1gts6lhpg0oskqf7v32"
-  network_id = "enpnci50506dmk59lltt"
+  folder_id = data.yandex_client_config.client.folder_id
+
+  blank_name = "vpc-nat-gateway"
+  labels = {
+    repo = "terraform-yacloud-modules/terraform-yandex-vpc"
+  }
+
+  azs = ["ru-central1-a"]
+
+  private_subnets = [["10.4.0.0/24"]]
+
+  create_vpc         = true
+  create_nat_gateway = true
+}
+
+module "kube" {
+  source = "git::https://github.com/terraform-yacloud-modules/terraform-yandex-kubernetes.git"
+
+
+  network_id = module.network.vpc_id
 
   name = "k8s-sentry"
 
@@ -30,7 +53,7 @@ module "kube" {
   master_locations = [
     {
       zone      = "ru-central1-a"
-      subnet_id = "e9b7vm6aqjgsrpfbkhp8"
+      subnet_id = module.network.private_subnets_ids[0]
     }
   ]
 
