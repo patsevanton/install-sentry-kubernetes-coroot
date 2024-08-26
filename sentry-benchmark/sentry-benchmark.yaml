@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentry-benchmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sentry-benchmark
+  template:
+    metadata:
+      labels:
+        app: sentry-benchmark
+    spec:
+      containers:
+        - name: sentry-benchmark
+          image: antonpatsev/sentry-benchmark:5
+          imagePullPolicy: Always
+          env:
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: sentry-dsn
+                  key: dsn
+          ports:
+            - containerPort: 8080
